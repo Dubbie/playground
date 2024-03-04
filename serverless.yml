@@ -12,7 +12,7 @@ provider:
     DB_HOST: ${ssm:/Playground/DBHost}
     DB_DATABASE: "playground-db"
     DB_USERNAME: ${ssm:/Playground/DBUser}
-    DB_PASSWORD: ${ssm:/Playground/DBPassowrd}
+    DB_PASSWORD: ${ssm:/Playground/DBPassword}
 
 package:
   # Files and directories to exclude from deployment
