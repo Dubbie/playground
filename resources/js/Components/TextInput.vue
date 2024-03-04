@@ -3,7 +3,6 @@ import { onMounted, ref } from "vue";
 
 defineProps({
     modelValue: String | Number,
-
     invalid: {
         type: Boolean,
         default: false,

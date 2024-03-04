@@ -29,6 +29,13 @@ const handleSubmit = () => {
                     form.setError(key, value[0]);
                 }
             }
+
+            if (error.response && error.response.status === 400) {
+                form.setError(
+                    "email",
+                    "Failed to log in using your credentials."
+                );
+            }
         })
         .finally(() => {
             loading.value = false;
@@ -48,6 +55,7 @@ const handleSubmit = () => {
                         type="email"
                         v-model="form.email"
                         class="w-full"
+                        @keyup="form.clearErrors('email')"
                     />
 
                     <InputError :message="form.errors.email" />
@@ -58,6 +66,7 @@ const handleSubmit = () => {
                         type="password"
                         v-model="form.password"
                         class="w-full"
+                        @keyup="form.clearErrors('password')"
                     />
 
                     <InputError :message="form.errors.password" />

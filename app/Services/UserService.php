@@ -21,9 +21,9 @@ class UserService
             ]);
         } else {
             return response()->json([
-                'message' => 'failed',
-                'success' => false
-            ]);
+                'message' => 'Failed to log in.',
+                'success' => false,
+            ], 400);
         }
     }
 

@@ -45,7 +45,12 @@ const handleSubmit = () => {
             <div class="space-y-3">
                 <div>
                     <InputLabel for="name">Name</InputLabel>
-                    <TextInput type="text" v-model="form.name" class="w-full" />
+                    <TextInput
+                        type="text"
+                        v-model="form.name"
+                        class="w-full"
+                        @keyup="form.clearErrors('name')"
+                    />
                     <InputError :message="form.errors.name" />
                 </div>
                 <div>
@@ -54,6 +59,7 @@ const handleSubmit = () => {
                         type="email"
                         v-model="form.email"
                         class="w-full"
+                        @keyup="form.clearErrors('email')"
                     />
                     <InputError :message="form.errors.email" />
                 </div>
@@ -63,6 +69,7 @@ const handleSubmit = () => {
                         type="password"
                         v-model="form.password"
                         class="w-full"
+                        @keyup="form.clearErrors('password')"
                     />
 
                     <InputError :message="form.errors.password" />
