@@ -18,7 +18,7 @@ import GuestLayout from "../Layouts/GuestLayout.vue";
             </li>
             <li>
                 <label class="flex space-x-2 items-center pointer-events-none">
-                    <input type="checkbox" disabled />
+                    <input type="checkbox" checked />
                     <p>Database setup with RDS.</p>
                 </label>
             </li>
