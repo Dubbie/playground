@@ -9,7 +9,7 @@ const showDiv = ref(false);
 
         <p>Currently testing if I can get Vue to work with Bref.</p>
 
-        <div>
+        <div class="mt-3">
             <div class="flex">
                 <p
                     @click="showDiv = !showDiv"
