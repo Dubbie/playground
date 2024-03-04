@@ -34,6 +34,10 @@ jobs:
         with:
           composer-options: "--prefer-dist --optimize-autoloader --no-dev"
 
+      # This step builds the frontend assets
+      - name: Build assets
+        run: npm run build
+
       # This step deploys your application to AWS Lambda using the Serverless Framework.
       - name: Deploy to AWS Lambda
         uses: serverless/github-action@v3
