@@ -8,7 +8,7 @@ provider:
   environment:
     APP_ENV: production # Or use ${sls:stage} if you want the environment to match the stage
     APP_DEBUG: true
-    APP_KEY: "base64:nESfQhDkUxoLpBimHqx1tObhGKnODY6VaAiYYzG+Uec="
+    APP_KEY: ${ssm:/Playground/AppKey}
     DB_HOST: ${ssm:/Playground/DBHost}
     DB_DATABASE: "playground-db"
     DB_USERNAME: ${ssm:/Playground/DBUser}
