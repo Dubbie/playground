@@ -14,12 +14,44 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    outline: {
+        type: Boolean,
+        default: false,
+    },
+    plain: {
+        type: Boolean,
+        default: false,
+    },
+    size: {
+        type: String,
+        default: "sm",
+    },
 });
 
 const colorClasses = computed(() => {
+    if (props.outline) {
+        return {
+            "dark/zinc": "ring-1 ring-black/10 hover:bg-black/5",
+        }[props.color];
+    }
+
+    if (props.plain) {
+        return {
+            "dark/zinc": "hover:bg-black/5",
+        }[props.color];
+    }
+
     return {
         "dark/zinc": "bg-zinc-900 text-white hover:bg-zinc-700",
     }[props.color];
+});
+
+const sizeClasses = computed(() => {
+    return {
+        xs: "px-1 py-0.5 text-xs",
+        sm: "px-3 py-1.5 text-sm",
+        md: "px-4 py-2 text-sm",
+    }[props.size];
 });
 
 const disabledClasses = computed(() => {
@@ -30,8 +62,8 @@ const disabledClasses = computed(() => {
 <template>
     <button
         :type="type"
-        class="px-3 py-1.5 rounded-lg text-sm font-semibold"
-        :class="[colorClasses, disabledClasses]"
+        class="select-none rounded-lg font-semibold"
+        :class="[colorClasses, disabledClasses, sizeClasses]"
     >
         <slot />
     </button>

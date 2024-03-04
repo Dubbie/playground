@@ -5,7 +5,7 @@ import GuestLayout from "../Layouts/GuestLayout.vue";
 <template>
     <GuestLayout title="Index">
         <p>
-            Going step by step to achieve fully serverless configuration for a
+            Going step by step to achieve fully AWS hosted configuration for a
             simple app.
         </p>
 
@@ -20,6 +20,12 @@ import GuestLayout from "../Layouts/GuestLayout.vue";
                 <label class="flex space-x-2 items-center pointer-events-none">
                     <input type="checkbox" checked />
                     <p>Database setup with RDS.</p>
+                </label>
+            </li>
+            <li>
+                <label class="flex space-x-2 items-center pointer-events-none">
+                    <input type="checkbox" checked />
+                    <p>File storage using S3</p>
                 </label>
             </li>
         </ul>
