@@ -13,6 +13,18 @@ provider:
     DB_DATABASE: "playground-db"
     DB_USERNAME: ${ssm:/Playground/DBUser}
     DB_PASSWORD: ${ssm:/Playground/DBPassword}
+    FILESYSTEM_DISK: s3
+    AWS_BUCKET: !Ref Storage
+  # Set up IAM
+  iam:
+    role:
+      statements:
+        # Allow Lambda to read and write files in the S3 buckets
+        - Effect: Allow
+          Action: s3:*
+          Resource:
+            - !Sub '${Storage.Arn}*' # Storage bucket
+            - !Sub '${Storage.Arn}/*' # Everything inside the bucket
   # VPC
   vpc:
     securityGroupIds:
@@ -21,6 +33,12 @@ provider:
       - subnet-0ce9f6a7fdbacfd9d
       - subnet-0bd02e2125fd4f249
       - subnet-03e386ac5df4894bf
+
+resources:
+  Resources:
+    # Create our S3 storage bucket using CloudFormation
+    Storage:
+      Type: AWS::S3::Bucket
 
 package:
   # Files and directories to exclude from deployment
