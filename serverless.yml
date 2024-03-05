@@ -34,7 +34,11 @@ provider:
       - subnet-0ce9f6a7fdbacfd9d
       - subnet-0bd02e2125fd4f249
       - subnet-03e386ac5df4894bf
-
+  apiGateway:
+    binaryMediaTypes:
+      - "*/*"
+    environment:
+      BREF_BINARY_RESPONSES: '1'
 resources:
   Resources:
     # Create our S3 storage bucket using CloudFormation
