@@ -18,7 +18,7 @@ const handleLogout = () => {
 
     <div class="bg-white border-b border-zinc-100">
         <div
-            class="max-w-3xl space-x-4 px-4 py-2 w-full mx-auto flex justify-between items-center"
+            class="max-w-3xl space-x-6 px-4 py-3 w-full mx-auto flex justify-between items-center"
         >
             <Link :href="route('dashboard')">
                 <p class="font-bold">Playground</p>
@@ -34,7 +34,7 @@ const handleLogout = () => {
 
             <div class="">
                 <p
-                    class="text-sm font-semibold hover:text-zinc-700 cursor-pointer"
+                    class="text-sm py-1 font-semibold hover:text-zinc-700 cursor-pointer"
                     @click="handleLogout"
                 >
                     Logout

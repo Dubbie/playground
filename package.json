@@ -16,6 +16,9 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.0.15",
-        "@vitejs/plugin-vue": "^5.0.4"
+        "@tabler/icons-vue": "^2.47.0",
+        "@vitejs/plugin-vue": "^5.0.4",
+        "mitt": "^3.0.1",
+        "typescript": "^5.3.3"
     }
 }

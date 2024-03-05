@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function files()
+    public function storedFiles()
     {
         return $this->hasMany(StoredFile::class);
     }

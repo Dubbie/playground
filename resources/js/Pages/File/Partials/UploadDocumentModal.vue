@@ -1,10 +1,12 @@
 <script setup>
 import Modal from "@/Components/Modal.vue";
 import AppButton from "@/Components/AppButton.vue";
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import axios from "axios";
 import InputError from "@/Components/InputError.vue";
+import FileCard from "@/Components/FileCard.vue";
+import AppAlert from "@/Components/AppAlert.vue";
 
 const props = defineProps({
     show: {
@@ -13,7 +15,9 @@ const props = defineProps({
     },
 });
 
+const emitter = inject("emitter");
 const loading = ref(false);
+const serverError = ref(false);
 const fileInput = ref(null);
 const form = useForm({
     files: [],
@@ -22,20 +26,6 @@ const form = useForm({
 const handleClick = () => {
     fileInput.value.click();
     form.clearErrors("files");
-};
-
-const formatFileSize = (sizeInBytes) => {
-    const units = ["B", "KB", "MB", "GB", "TB"];
-
-    let size = sizeInBytes;
-    let unitIndex = 0;
-
-    while (size >= 1024 && unitIndex < units.length - 1) {
-        size /= 1024;
-        unitIndex++;
-    }
-
-    return `${size.toFixed(1)} ${units[unitIndex]}`;
 };
 
 const handleFileChange = (event) => {
@@ -67,6 +57,7 @@ const handleSubmit = async () => {
     try {
         // Send POST request using Axios
         loading.value = true;
+        serverError.value = false;
         const response = await axios.post(route("api.file.create"), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -74,7 +65,8 @@ const handleSubmit = async () => {
         });
 
         // Handle the response as needed
-        console.log(response.data);
+        emitter.emit("files-updated", response.data.data);
+        emit("close");
     } catch (error) {
         if (error.response && error.response.status === 422) {
             for (const [key, value] of Object.entries(
@@ -84,6 +76,7 @@ const handleSubmit = async () => {
             }
         } else {
             console.error("Error uploading files:", error);
+            serverError.value = true;
         }
     }
 
@@ -96,7 +89,7 @@ const emit = defineEmits(["close"]);
 <template>
     <Modal :show="show" @close="$emit('close')">
         <div class="p-6">
-            <p class="mb-3 text-lg font-semibold">Upload document</p>
+            <p class="mb-3 text-lg font-semibold">Upload documents</p>
             <p class="text-sm text-zinc-500">
                 Please select the files you would like to archive.
             </p>
@@ -144,38 +137,15 @@ const emit = defineEmits(["close"]);
             </div>
 
             <div class="space-y-3 mt-3" v-if="form.files.length > 0">
-                <div
-                    v-for="(file, index) in form.files"
-                    class="p-3 border rounded-xl flex items-start"
-                >
-                    <div class="flex-1 overflow-hidden">
-                        <p class="text-sm font-semibold truncate">
-                            {{ file.name }}
-                        </p>
-                        <p class="text-xs text-zinc-500 font-medium">
-                            {{ formatFileSize(file.size) }}
-                        </p>
-                    </div>
-
-                    <div
-                        class="p-2 rounded-lg hover:bg-black/5"
-                        @click="handleDeleteFile(index)"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            class="w-5 h-5"
-                        >
-                            <path
-                                d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"
-                            />
-                        </svg>
-                    </div>
-                </div>
+                <FileCard v-for="(file, index) in form.files" :key="index" :file="file" @delete="handleDeleteFile(index)" />
             </div>
 
             <InputError :message="form.errors.files" class="mt-2" />
+
+            <AppAlert class="mt-2" type="error" v-if="serverError">
+                An error occurred while uploading the files. Please try again
+                later.
+            </AppAlert>
 
             <div class="mt-6 flex space-x-2 justify-end">
                 <AppButton plain @click="$emit('close')">Close</AppButton>

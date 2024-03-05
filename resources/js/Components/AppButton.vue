@@ -26,6 +26,10 @@ const props = defineProps({
         type: String,
         default: "sm",
     },
+    square: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const colorClasses = computed(() => {
@@ -47,6 +51,13 @@ const colorClasses = computed(() => {
 });
 
 const sizeClasses = computed(() => {
+    if (props.square) {
+        return {
+            xs: "p-1",
+            sm: "p-2",
+        }[props.size];
+    }
+
     return {
         xs: "px-1 py-0.5 text-xs",
         sm: "px-3 py-1.5 text-sm",
@@ -60,11 +71,8 @@ const disabledClasses = computed(() => {
 </script>
 
 <template>
-    <button
-        :type="type"
-        class="select-none rounded-lg font-semibold"
-        :class="[colorClasses, disabledClasses, sizeClasses]"
-    >
+    <button :type="type" class="group/button select-none rounded-lg font-semibold"
+        :class="[colorClasses, disabledClasses, sizeClasses]">
         <slot />
     </button>
 </template>

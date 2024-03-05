@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('files', [FileApiController::class, 'get'])->name('api.file.get');
     Route::post('files', [FileApiController::class, 'create'])->name('api.file.create');
+    Route::delete('files/{file}', [FileApiController::class, 'destroy'])->name('api.file.destroy');
 });

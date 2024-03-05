@@ -4,21 +4,25 @@ import AuthLayout from "@/Layouts/AuthLayout.vue";
 import FilesList from "@/Pages/File/Partials/FilesList.vue";
 import UploadDocumentModal from "@/Pages/File/Partials/UploadDocumentModal.vue";
 import axios from "axios";
-import { ref, onMounted, provide } from "vue";
+import { ref, onUnmounted, onMounted, provide, inject } from "vue";
 
+const emitter = inject("emitter");
 const loading = ref(true);
 const files = ref([]);
 const showUploadDocumentModal = ref(false);
 
-provide("files", files.value);
+provide("files", files);
 
-const updateFiles = () => {
-    console.log("Grabbing files from API");
+const updateFiles = (newFiles) => {
+    files.value = newFiles;
+};
+
+const fetchFiles = () => {
     loading.value = true;
     axios
         .get(route("api.file.get"))
         .then((response) => {
-            console.log(response);
+            updateFiles(response.data.data);
         })
         .catch((error) => {
             console.log(error.response);
@@ -29,7 +33,13 @@ const updateFiles = () => {
 };
 
 onMounted(() => {
-    updateFiles();
+    fetchFiles();
+
+    emitter.on("files-updated", updateFiles);
+});
+
+onUnmounted(() => {
+    emitter.off("files-updated");
 });
 </script>
 
@@ -61,5 +71,5 @@ onMounted(() => {
             :show="showUploadDocumentModal"
             @close="showUploadDocumentModal = false"
         />
-    </AuthLayout>
+    </Authlayout>
 </template>

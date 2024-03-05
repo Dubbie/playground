@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/files', [FileController::class, 'index'])
         ->name('file.index');
+    Route::get('/files/{file}', [FileController::class, 'download'])
+        ->name('file.download');
 
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
