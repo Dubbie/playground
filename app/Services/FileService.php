@@ -7,6 +7,11 @@ use Illuminate\Http\UploadedFile;
 
 class FileService
 {
+    /**
+     * @param UploadedFile|array $file
+     * @param User $user
+     * @return mixed
+     */
     public function upload(UploadedFile|array $file, User $user)
     {
         if (!is_array($file)) {
@@ -30,6 +35,10 @@ class FileService
         return $user->storedFiles()->createMany($storedFiles);
     }
 
+    /**
+     * @param $file
+     * @return mixed
+     */
     public function delete($file)
     {
         $file->delete();

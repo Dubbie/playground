@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    /**
+     * @param string $email
+     * @param $password
+     * @return mixed
+     */
     public function login(string $email, $password)
     {
         if (Auth::attempt([
@@ -27,6 +32,12 @@ class UserService
         }
     }
 
+    /**
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return mixed
+     */
     public function register(string $name, string $email, string $password)
     {
         try {
