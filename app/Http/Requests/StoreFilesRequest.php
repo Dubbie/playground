@@ -23,7 +23,7 @@ class StoreFilesRequest extends FormRequest
     {
         return [
             'files' => 'required|array',
-            'files.*' => 'file|max:10240|mimes:pdf,doc,docx,xls,xlsx,txt,csv',
+            'files.*' => 'file|max:6000|mimes:pdf,doc,docx,xls,xlsx,txt,csv',
         ];
     }
 }

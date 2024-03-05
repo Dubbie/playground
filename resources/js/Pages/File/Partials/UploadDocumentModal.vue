@@ -132,7 +132,7 @@ const emit = defineEmits(["close"]);
                         >
                         to start browsing your files
                     </p>
-                    <p class="text-xs text-zinc-500">(max. 10Mb per file)</p>
+                    <p class="text-xs text-zinc-500">(max. 6Mb per file)</p>
                 </div>
             </div>
 
