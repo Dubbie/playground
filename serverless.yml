@@ -16,6 +16,7 @@ provider:
     DB_PASSWORD: ${ssm:/Playground/DBPassword}
     FILESYSTEM_DISK: s3
     AWS_BUCKET: !Ref Storage
+    BREF_BINARY_RESPONSES: '1'
   # Set up IAM
   iam:
     role:
@@ -37,8 +38,7 @@ provider:
   apiGateway:
     binaryMediaTypes:
       - "*/*"
-    environment:
-      BREF_BINARY_RESPONSES: '1'
+
 resources:
   Resources:
     # Create our S3 storage bucket using CloudFormation
