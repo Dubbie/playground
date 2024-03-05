@@ -40,6 +40,10 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      # Run PHP tests before deploying
+      - name: Run PHP tests
+        run: vendor/bin/phpunit
+
       # This step deploys your application to AWS Lambda using the Serverless Framework.
       - name: Deploy to AWS Lambda
         uses: serverless/github-action@v3
