@@ -18,10 +18,6 @@ class AuthController extends Controller
 
     public function login()
     {
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
-        }
-
         return Inertia::render('Auth/Login');
     }
 
@@ -37,10 +33,6 @@ class AuthController extends Controller
 
     public function register()
     {
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
-        }
-
         return Inertia::render('Auth/Register');
     }
 

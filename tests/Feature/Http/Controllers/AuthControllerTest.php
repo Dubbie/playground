@@ -63,4 +63,22 @@ class AuthControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_login_fail_works()
+    {
+        $response = $this->postJson('/login', [
+            'email' => 'testest@gmail.com',
+            'password' => 'password'
+        ]);
+
+        $response->assertStatus(400);
+    }
+
+    public function test_logout_works()
+    {
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->post('/logout');
+
+        $response->assertRedirect('/');
+    }
 }

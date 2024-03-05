@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\StoredFile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +13,14 @@ class FileControllerTest extends TestCase
 
     protected bool $seed = true;
 
-    public function test_index()
+    public function test_index_redirects_unauthenticated()
+    {
+        $response = $this->get(route('file.index'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_index_loads_authenticated()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('file.index'));
