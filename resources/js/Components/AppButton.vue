@@ -71,8 +71,11 @@ const disabledClasses = computed(() => {
 </script>
 
 <template>
-    <button :type="type" class="group/button select-none rounded-lg font-semibold"
-        :class="[colorClasses, disabledClasses, sizeClasses]">
+    <button
+        :type="type"
+        class="inline-flex items-center justify-center group/button select-none rounded-lg font-semibold"
+        :class="[colorClasses, disabledClasses, sizeClasses]"
+    >
         <slot />
     </button>
 </template>

@@ -31,12 +31,19 @@ const emit = defineEmits(["delete"]);
     <div class="border p-3 rounded-xl">
         <div class="flex items-center justify-between space-x-3">
             <FileIcon :file="file" />
-            <div class="flex-1">
-                <p class="text-sm font-bold">{{ file.name }}</p>
-                <p class="text-xs text-zinc-500">{{ formatFileSize(file.size) }}</p>
+            <div class="flex-1 overflow-hidden">
+                <p class="text-sm font-semibold truncate">{{ file.name }}</p>
+                <p class="text-xs text-zinc-500">
+                    {{ formatFileSize(file.size) }}
+                </p>
             </div>
             <div class="flex space-x-1 items-center">
-<a :href="file.download_link" download="true" target="_blank" v-if="file.download_link">
+                <a
+                    :href="file.download_link"
+                    download="true"
+                    target="_blank"
+                    v-if="file.download_link"
+                >
                     <AppButton plain square size="xs">
                         <IconDownload
                             class="text-zinc-400 group-hover/button:text-zinc-700 size-5"

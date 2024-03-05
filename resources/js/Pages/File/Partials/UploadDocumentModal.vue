@@ -87,7 +87,7 @@ const emit = defineEmits(["close"]);
 </script>
 
 <template>
-    <Modal :show="show" @close="$emit('close')">
+    <Modal :show="show" max-width="md" @close="$emit('close')">
         <div class="p-6">
             <p class="mb-3 text-lg font-semibold">Upload documents</p>
             <p class="text-sm text-zinc-500">
@@ -104,7 +104,7 @@ const emit = defineEmits(["close"]);
                 />
 
                 <div
-                    class="cursor-pointer flex flex-col border rounded-2xl p-3 items-center select-none hover:border-indigo-400"
+                    class="cursor-pointer flex flex-col ring-1 ring-zinc-200 rounded-2xl p-4 items-center select-none hover:ring-2 hover:ring-indigo-500"
                     @click="handleClick"
                 >
                     <div
@@ -137,7 +137,12 @@ const emit = defineEmits(["close"]);
             </div>
 
             <div class="space-y-3 mt-3" v-if="form.files.length > 0">
-                <FileCard v-for="(file, index) in form.files" :key="index" :file="file" @delete="handleDeleteFile(index)" />
+                <FileCard
+                    v-for="(file, index) in form.files"
+                    :key="index"
+                    :file="file"
+                    @delete="handleDeleteFile(index)"
+                />
             </div>
 
             <InputError :message="form.errors.files" class="mt-2" />

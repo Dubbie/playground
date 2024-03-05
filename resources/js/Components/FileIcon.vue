@@ -57,7 +57,7 @@ const extension = computed(() => {
             <IconFile class="text-zinc-300" size="48" :stroke-width="1" />
         </div>
         <p
-            class="absolute bottom-2.5 left-1 text-xs font-bold text-[11px] rounded text-white leading-none px-1 uppercase py-0.5"
+            class="absolute bottom-3 left-1 text-xs font-bold text-[9px] rounded text-white leading-none px-1 uppercase py-0.5"
             :class="extensionBgClass"
         >
             {{ extension }}
