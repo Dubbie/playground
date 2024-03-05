@@ -67,6 +67,7 @@ const handleSubmit = () => {
                         v-model="form.password"
                         class="w-full"
                         @keyup="form.clearErrors('password')"
+                        @keydown.enter="handleSubmit"
                     />
 
                     <InputError :message="form.errors.password" />
